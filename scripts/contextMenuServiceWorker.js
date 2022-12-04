@@ -46,8 +46,8 @@ const generate = async (prompt) => {
         body: JSON.stringify({
             model: 'text-davinci-003',
             prompt: prompt,
-            max_tokens: 1250,
-            temperature: 0.7,
+            max_tokens: 1000,
+            temperature: 0.8,
         }),
     });
 	
@@ -64,9 +64,9 @@ const generateCompletionAction = async (info) => {
 
         const { selectionText } = info;
         const basePromptPrefix = `
-        Write me a detailed table of contents for a blog post with the title below.
+        Write me a detailed table of contents for a tweet thread with the title below, written in the style of Elon Musk.
 
-        Title:
+        Title: 
         `;
 
         // Add this to call GPT-3
@@ -77,13 +77,13 @@ const generateCompletionAction = async (info) => {
 
         // Add your second prompt here
         const secondPrompt = `
-        Take the table of contents and title of the blog post below and generate a blog post written in thwe style of Paul Graham. Make it feel like a story. Don't just list the points. Go deep into each one. Explain why.
+        Take the table of contents and title of the tweet thread below and generate a tweet thread written in the style of Changpeng Zhao. Make it feel like a story. Don't just list the points. Go deep into each one. Explain why. Do not reveal who you are.
         
         Title: ${selectionText}
         
         Table of Contents: ${baseCompletion.text}
         
-        Blog Post:
+        Tweet Thread:
         `;
 
         // Call your second prompt
@@ -103,7 +103,7 @@ const generateCompletionAction = async (info) => {
 
 chrome.contextMenus.create({
     id: 'context-run',
-    title: 'Generate blog post',
+    title: 'Generate thread',
     contexts: ['selection'],
 });
 
